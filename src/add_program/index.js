@@ -54,14 +54,14 @@ const Addprogram = () => {
   ];
 
   const sendData = () => {
-    if (
+    /*if (
       selectedChannel === null ||
       selectedDate === null ||
       programName === null ||
       artist === null
     ) {
       alert("記入漏れがあります");
-    }
+    }*/
 
     const data = {
       channel: selectedChannel,

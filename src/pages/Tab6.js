@@ -5,22 +5,14 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonItem,
 } from "@ionic/react";
 
 const Tab3 = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 6</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 6</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <IonItem>通知</IonItem>
       </IonContent>
     </IonPage>
   );
