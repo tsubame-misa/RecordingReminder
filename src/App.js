@@ -26,6 +26,7 @@ import Tab6 from "./pages/Tab6";
 import AddProgram from "./add_program/index";
 import NotiSetting from "./setting/noti";
 import ColSetting from "./setting/color";
+import notifications from "./notification/index";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -46,6 +47,21 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import { isStringTextContainingNode } from "typescript";
+//import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification/ngx";
+import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification";
+
+//constructor(PhonegapLocalNotification);
+/*
+this.localNotification.requestPermission().then((permission) => {
+  if (permission === "granted") {
+    // Create the notification
+    this.localNotification.create("My Title", {
+      tag: "message1",
+      body: "My body",
+      icon: "assets/icon/favicon.ico",
+    });
+  }
+});*/
 
 const App = () => {
   const [ID, setID] = useState();
@@ -73,6 +89,12 @@ const App = () => {
             {ID == 0 ? <IonLabel>User</IonLabel> : <IonLabel>Host</IonLabel>}
           </IonButton>
         </IonToolbar>
+        <IonButton
+          color="tertiary"
+          onClick={() => notifications.schedule(8, 0)}
+        >
+          Schedule Notification
+        </IonButton>
       </IonHeader>
 
       <IonContent>

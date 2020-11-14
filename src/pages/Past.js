@@ -52,11 +52,12 @@ const Past = () => {
               .map((d, id) => {
                 return (
                   <div>
-                    <IonButton fill="clear" expand="full" color="dark">
+                    <IonButton key={id} fill="clear" expand="full" color="dark">
                       {convertDate(d.date)} &emsp;
                       {d.name}
                       <IonButton
                         fill="clear"
+                        key={id}
                         onClick={() => {
                           setID(id);
                           delItem();

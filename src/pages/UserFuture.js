@@ -62,6 +62,7 @@ const UserFuture = () => {
                   fill="clear"
                   expand="full"
                   color="dark"
+                  key={id}
                   onClick={() => {
                     setID(id);
                     console.log(id);
