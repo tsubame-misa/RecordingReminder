@@ -21,6 +21,8 @@ import {
 } from "@ionic/react";
 import { add, contractOutline, trash } from "ionicons/icons";
 import { useState } from "react";
+import notifications from "../notification/index";
+import { convertDate } from "../pages/Future";
 
 const Addprogram = () => {
   const [programName, setProgramName] = useState();
@@ -54,14 +56,14 @@ const Addprogram = () => {
   ];
 
   const sendData = () => {
-    /*if (
+    if (
       selectedChannel === null ||
       selectedDate === null ||
       programName === null ||
       artist === null
     ) {
       alert("記入漏れがあります");
-    }*/
+    }
 
     const data = {
       channel: selectedChannel,
@@ -71,6 +73,24 @@ const Addprogram = () => {
       perfTime: perfTime,
       comment: text,
     };
+
+    const dateList = data.date.split(/[-T:]/);
+    const current = new Date();
+    console.log(dateList);
+    const date = new Date(
+      dateList[0],
+      dateList[1] - 1,
+      dateList[2],
+      dateList[3],
+      dateList[4],
+      0,
+      0
+    );
+    //通知
+    const diff = date.getTime() - current.getTime();
+    const second = Math.floor(diff / 1000);
+    console.log(second);
+    notifications.schedule(second);
 
     let datalist = JSON.parse(localStorage.getItem("data"));
     if (datalist === null) {
@@ -95,7 +115,7 @@ const Addprogram = () => {
     setArtist(null);
     setPerfTime(null);
     setText(null);
-    window.location.href = `/future`;
+    //window.location.href = `/future`;
   };
 
   return (

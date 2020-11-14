@@ -46,22 +46,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { isStringTextContainingNode } from "typescript";
-//import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification/ngx";
-import { PhonegapLocalNotification } from "@ionic-native/phonegap-local-notification";
-
-//constructor(PhonegapLocalNotification);
-/*
-this.localNotification.requestPermission().then((permission) => {
-  if (permission === "granted") {
-    // Create the notification
-    this.localNotification.create("My Title", {
-      tag: "message1",
-      body: "My body",
-      icon: "assets/icon/favicon.ico",
-    });
-  }
-});*/
 
 const App = () => {
   const [ID, setID] = useState();
