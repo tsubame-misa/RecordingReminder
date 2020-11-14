@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   IonContent,
   IonHeader,
@@ -13,35 +13,58 @@ import {
   IonItem,
   IonLabel,
   IonAlert,
+  IonButton,
 } from "@ionic/react";
-import { add, trash } from "ionicons/icons";
-import { useState } from "react";
+import { add, cloudyNight, trash } from "ionicons/icons";
+
+export const convertDate = (input) => {
+  if (input === null) {
+    return "";
+  }
+  const dateList = input.split(/[-T:]/);
+  const createdDay =
+    dateList[0] +
+    "/" +
+    dateList[1] +
+    "/" +
+    dateList[2] +
+    " " +
+    dateList[3] +
+    ":" +
+    dateList[4];
+  return createdDay;
+};
 
 const Tab4 = () => {
-  const [showAlert, setShowAlert] = useState(false);
-  const [showAlert5, setShowAlert5] = useState(false);
-  const [text, setText] = useState();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if ("data" in localStorage) {
+      setData(JSON.parse(localStorage.getItem("data")));
+      console.log(data);
+    }
+  }, []);
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 4</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 4</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        {data.map((d) => {
+          return (
+            <div>
+              <IonItem>
+                {d.channel} &emsp;
+                {convertDate(d.date)} &emsp;
+                {d.name}
+              </IonItem>
+            </div>
+          );
+        })}
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton href="/add_program">
+            <IonIcon icon={add} />
+          </IonFabButton>
+        </IonFab>
       </IonContent>
-
-      <IonFab vertical="bottom" horizontal="end" slot="fixed">
-        <IonFabButton href="/add_program">
-          <IonIcon icon={add} />
-        </IonFabButton>
-      </IonFab>
     </IonPage>
   );
 };
