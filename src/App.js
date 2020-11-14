@@ -20,8 +20,8 @@ import { ellipse, square, triangle } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
-import Tab4 from "./pages/Tab4";
-import Tab5 from "./pages/Tab5";
+import Future from "./pages/Future";
+import Past from "./pages/Past";
 import Tab6 from "./pages/Tab6";
 import AddProgram from "./add_program/index";
 
@@ -60,6 +60,7 @@ const App = () => {
     <IonApp>
       <IonHeader>
         <IonToolbar>
+          {/*User と　Hostの切り替え時に前のページが残る*/}
           <IonTitle>Recording Reminder</IonTitle>
           <IonButton
             onClick={() => {
@@ -105,24 +106,24 @@ const App = () => {
             <IonTabs>
               {/*host*/}
               <IonRouterOutlet>
-                <Route path="/tab4" component={Tab4} exact={true} />
-                <Route path="/tab5" component={Tab5} exact={true} />
+                <Route path="/future" component={Future} exact={true} />
+                <Route path="/past" component={Past} exact={true} />
                 <Route path="/tab6" component={Tab6} />
                 <Route path="/add_program" component={AddProgram} />
                 <Route
                   path="/"
-                  render={() => <Redirect to="/tab4" />}
+                  render={() => <Redirect to="/future" />}
                   exact={true}
                 />
               </IonRouterOutlet>
               <IonTabBar slot="bottom">
-                <IonTabButton tab="tab4" href="/tab4">
+                <IonTabButton tab="Future" href="/future">
                   <IonIcon icon={triangle} />
-                  <IonLabel>Tab 4</IonLabel>
+                  <IonLabel>Future</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="tab5" href="/tab5">
+                <IonTabButton tab="Past" href="/past">
                   <IonIcon icon={ellipse} />
-                  <IonLabel>Tab 5</IonLabel>
+                  <IonLabel>Past</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="tab6" href="/tab6">
                   <IonIcon icon={square} />

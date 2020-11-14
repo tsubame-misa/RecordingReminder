@@ -78,6 +78,15 @@ const Addprogram = () => {
     } else {
       datalist.push(data);
     }
+
+    datalist.sort((a, b) => {
+      if (a.date > b.date) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+
     localStorage.setItem("data", JSON.stringify(datalist));
 
     setSelectedChannel(null);
@@ -86,6 +95,7 @@ const Addprogram = () => {
     setArtist(null);
     setPerfTime(null);
     setText(null);
+    window.location.href = `/future`;
   };
 
   return (
@@ -99,6 +109,13 @@ const Addprogram = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonItem>
+          <IonInput
+            value={programName}
+            placeholder="番組名"
+            onIonChange={(e) => setProgramName(e.detail.value)}
+          ></IonInput>
+        </IonItem>
         <IonItem>
           <IonLabel>チャンネル名</IonLabel>
           <IonSelect
@@ -122,13 +139,6 @@ const Addprogram = () => {
             value={selectedDate}
             onIonChange={(e) => setSelectedDate(e.detail.value)}
           ></IonDatetime>
-        </IonItem>
-        <IonItem>
-          <IonInput
-            value={programName}
-            placeholder="番組名"
-            onIonChange={(e) => setProgramName(e.detail.value)}
-          ></IonInput>
         </IonItem>
 
         <IonItem>
