@@ -24,6 +24,8 @@ import Future from "./pages/Future";
 import Past from "./pages/Past";
 import Tab6 from "./pages/Tab6";
 import AddProgram from "./add_program/index";
+import NotiSetting from "./setting/noti";
+import ColSetting from "./setting/color";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -46,7 +48,7 @@ import "./theme/variables.css";
 import { isStringTextContainingNode } from "typescript";
 
 const App = () => {
-  const [ID, setID] = useState(1);
+  const [ID, setID] = useState();
 
   const settingID = () => {
     if (ID == 0) {
@@ -68,7 +70,7 @@ const App = () => {
             }}
           >
             <IonIcon icon={triangle} />
-            {ID == 0 ? <IonLabel>HOST</IonLabel> : <IonLabel>User</IonLabel>}
+            {ID == 0 ? <IonLabel>User</IonLabel> : <IonLabel>Host</IonLabel>}
           </IonButton>
         </IonToolbar>
       </IonHeader>
@@ -84,7 +86,10 @@ const App = () => {
                   exact={true}
                 />
                 <Route path="/user_past" component={UserPast} exact={true} />
-                <Route path="/user_past" component={UserPast} />
+                <Route path="/tab3" component={Tab3} />
+                <Route path="/noti_setting" component={NotiSetting} />
+
+                <Route path="/color_setting" component={ColSetting} />
                 <Route
                   path="/"
                   render={() => <Redirect to="/user_future" />}

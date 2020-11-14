@@ -17,12 +17,14 @@ import {
   chevronBack,
 } from "ionicons/icons";
 
-const Tab6 = () => {
+const NotiSetting = () => {
   return (
     <IonPage>
-      <IonContent fullscreen>tab6</IonContent>
+      <IonContent fullscreen>
+        <IonItem>通知の設定</IonItem>
+      </IonContent>
     </IonPage>
   );
 };
 
-export default Tab6;
+export default NotiSetting;
