@@ -35,124 +35,13 @@ const Tab4 = () => {
             <IonTitle size="large">Tab 4</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => setShowAlert(true)}>
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
-        <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          cssClass="my-custom-class"
-          header={"Prompt!"}
-          inputs={[
-            {
-              name: "name1",
-              type: "text",
-              placeholder: "チャンネル",
-            },
-            {
-              name: "name4",
-              type: "date",
-              min: "2017-03-01",
-              max: "2018-01-12",
-            },
-            {
-              name: "name2",
-              type: "text",
-              id: "name2-id",
-              placeholder: "番組名",
-            },
-            {
-              name: "name1",
-              type: "text",
-              placeholder: "アーティスト",
-            },
-            {
-              name: "name3",
-              type: "textarea",
-              placeholder: "その他・コメント",
-            },
-          ]}
-          buttons={[
-            {
-              text: "Cancel",
-              role: "cancel",
-              cssClass: "secondary",
-              handler: () => {
-                console.log("Confirm Cancel");
-              },
-            },
-            {
-              text: "Ok",
-              handler: () => {
-                console.log("Confirm Ok");
-              },
-            },
-          ]}
-        />
-        <IonAlert
-          isOpen={showAlert5}
-          onDidDismiss={() => setShowAlert5(false)}
-          cssClass="my-custom-class"
-          header={"Radio"}
-          inputs={[
-            {
-              name: "radio1",
-              type: "radio",
-              label: "Radio 1",
-              value: "value1",
-              checked: true,
-            },
-            {
-              name: "radio2",
-              type: "radio",
-              label: "Radio 2",
-              value: "value2",
-            },
-            {
-              name: "radio3",
-              type: "radio",
-              label: "Radio 3",
-              value: "value3",
-            },
-            {
-              name: "radio4",
-              type: "radio",
-              label: "Radio 4",
-              value: "value4",
-            },
-            {
-              name: "radio5",
-              type: "radio",
-              label: "Radio 5",
-              value: "value5",
-            },
-            {
-              name: "radio6",
-              type: "radio",
-              label: "Radio 6",
-              value: "value6",
-            },
-          ]}
-          buttons={[
-            {
-              text: "Cancel",
-              role: "cancel",
-              cssClass: "secondary",
-              handler: () => {
-                console.log("Confirm Cancel");
-              },
-            },
-            {
-              text: "Ok",
-              handler: () => {
-                console.log("Confirm Ok");
-              },
-            },
-          ]}
-        />
       </IonContent>
+
+      <IonFab vertical="bottom" horizontal="end" slot="fixed">
+        <IonFabButton href="/add_program">
+          <IonIcon icon={add} />
+        </IonFabButton>
+      </IonFab>
     </IonPage>
   );
 };

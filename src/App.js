@@ -23,6 +23,7 @@ import Tab3 from "./pages/Tab3";
 import Tab4 from "./pages/Tab4";
 import Tab5 from "./pages/Tab5";
 import Tab6 from "./pages/Tab6";
+import AddProgram from "./add_program/index";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -107,6 +108,7 @@ const App = () => {
                 <Route path="/tab4" component={Tab4} exact={true} />
                 <Route path="/tab5" component={Tab5} exact={true} />
                 <Route path="/tab6" component={Tab6} />
+                <Route path="/add_program" component={AddProgram} />
                 <Route
                   path="/"
                   render={() => <Redirect to="/tab4" />}
