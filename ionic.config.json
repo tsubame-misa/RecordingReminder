@@ -1,0 +1,7 @@
+{
+  "name": "RecordingReminder",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
