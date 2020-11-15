@@ -15,6 +15,7 @@ import {
   IonContent,
   IonButton,
   IonButtons,
+  IonImg,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
@@ -36,6 +37,8 @@ import AddProgram from "./add_program/index";
 import ColSetting from "./setting/color";
 import notifications from "./notification/index";
 import Detail from "./detail/index";
+import pic from "./img/icon_ske.png";
+import "./App.css";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -91,7 +94,12 @@ const App = () => {
       <IonHeader>
         <IonToolbar color="light">
           {/*User と　Hostの切り替え時に前のページが残る*/}
-          <IonTitle>Recording Reminder</IonTitle>
+
+          <IonTitle>Re-Re</IonTitle>
+          {/*} <img className="icon" src={pic}></img>*/}
+          {/*<IonIcon icon={pic}></IonIcon>*/}
+          {/*<IonImg src={pic}></IonImg>*/}
+
           <IonButton fill="outline" color="dark" slot="end" href={returnUrl()}>
             {pathList[1] === "user" ? (
               <IonLabel>change to host</IonLabel>

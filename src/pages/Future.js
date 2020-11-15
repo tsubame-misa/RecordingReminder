@@ -17,7 +17,8 @@ import {
   IonButton,
   useIonViewWillEnter,
 } from "@ionic/react";
-import { add, cloudyNight, trash } from "ionicons/icons";
+import { add, ellipsisHorizontal, trash } from "ionicons/icons";
+import { delItem } from "./Past";
 
 export const convertDate = (input) => {
   if (input === null) {
@@ -52,14 +53,7 @@ const Future = () => {
   const [data, setData] = useState([]);
   const [ID, setID] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-
-  /*useIonViewWillEnter(() => {
-    if ("data" in localStorage) {
-      setData(JSON.parse(localStorage.getItem("data")));
-      console.log(data);
-    }
-  });
-*/
+  const TASKS_STORAGE = "task";
 
   useEffect(() => {
     if ("data" in localStorage) {
@@ -70,6 +64,16 @@ const Future = () => {
 
   const showData = () => {
     console.log(data);
+  };
+
+  const delItem = (ID) => {
+    console.log("del", ID);
+    setData((prevState) => {
+      prevState.splice(ID, 1);
+      console.log(prevState);
+      localStorage.setItem(TASKS_STORAGE, JSON.stringify(prevState));
+      return prevState;
+    });
   };
 
   if (data === []) {
@@ -86,22 +90,38 @@ const Future = () => {
           .map((d, id) => {
             return (
               <div>
-                <IonButton
-                  fill="clear"
-                  expand="full"
-                  color="dark"
+                <IonItem
                   key={id}
                   onClick={() => {
                     setID(id);
                     console.log(id);
-                    setShowAlert(true);
+                    //setShowAlert(true);
                     showData();
                   }}
                 >
                   {d.channel} &emsp;
                   {convertDate(d.date)} &emsp;
                   {d.name}
-                </IonButton>
+                  <IonButton
+                    slot="end"
+                    fill="none"
+                    color="dark"
+                    href={`/host/detail/${id}`}
+                  >
+                    <IonIcon icon={ellipsisHorizontal}></IonIcon>
+                  </IonButton>
+                  <IonButton
+                    slot="end"
+                    fill="none"
+                    color="dark"
+                    onClick={() => {
+                      setID(id);
+                      delItem(id);
+                    }}
+                  >
+                    <IonIcon icon={trash}></IonIcon>
+                  </IonButton>
+                </IonItem>
               </div>
             );
           })}

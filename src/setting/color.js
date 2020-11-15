@@ -21,18 +21,8 @@ const Tab3 = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonItem>
-          fasdjfiosjdfo
-          <IonButton href="/noti_setting">
-            <IonIcon icon={chevronForwardOutline}></IonIcon>
-          </IonButton>
-        </IonItem>
-        <IonItem>
-          asdjfioajdifo
-          <IonButton href="/color_setting">
-            <IonIcon icon={chevronForwardOutline}></IonIcon>
-          </IonButton>
-        </IonItem>
+        <IonItem>aka</IonItem>
+        <IonItem>ao</IonItem>
       </IonContent>
     </IonPage>
   );

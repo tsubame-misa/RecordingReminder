@@ -14,11 +14,13 @@ import {
   IonCardContent,
   IonItemOption,
   IonItemOptions,
+  IonButtons,
 } from "@ionic/react";
 import { convertDate, CmpTime } from "./Future";
 import { contractOutline, trash } from "ionicons/icons";
 import { getDefaultLibFileName } from "typescript";
 import { useStorage } from "@ionic/react-hooks/storage";
+import { ellipsisHorizontal } from "ionicons/icons";
 
 const Past = () => {
   const [data, setData] = useState([]);
@@ -70,32 +72,43 @@ const Past = () => {
           .map((d, id) => {
             return (
               <div>
-                <IonItemSliding key={id}>
+                <IonItem>
+                  {convertDate(d.date)} &emsp;
+                  {d.name}
                   <IonButton
-                    fill="clear"
-                    expand="full"
+                    slot="end"
+                    fill="none"
                     color="dark"
                     href={`/host/detail/${id}`}
-                    onClick={() => {}}
                   >
-                    <IonItem>
+                    <IonIcon icon={ellipsisHorizontal}></IonIcon>
+                  </IonButton>
+                  <IonButton
+                    slot="end"
+                    fill="none"
+                    color="dark"
+                    onClick={() => {
+                      setID(id);
+                      delItem(id);
+                    }}
+                  >
+                    <IonIcon icon={trash}></IonIcon>
+                  </IonButton>
+                </IonItem>
+                {/*<IonItemSliding key={id}>
+                  <IonItem>
+                    <IonButton
+                      fill="clear"
+                      expand="full"
+                      color="dark"
+                      href={`/host/detail/${id}`}
+                      onClick={() => {}}
+                    >
                       {convertDate(d.date)} &emsp;
                       {d.name}
-                    </IonItem>
-                  </IonButton>
+                    </IonButton>
+                  </IonItem>
 
-                  {/*<IonItemOptions side="start">
-                    <IonItemOption
-                      color="primary"
-                      expandable
-                      onClick={() => {
-                        setID(id);
-                        console.log(id);
-                      }}
-                    >
-                      Edit
-                    </IonItemOption>
-                    </IonItemOptions>*/}
                   <IonItemOptions side="end">
                     <IonItemOption
                       color="danger"
@@ -108,7 +121,7 @@ const Past = () => {
                       Delete
                     </IonItemOption>
                   </IonItemOptions>
-                </IonItemSliding>
+                    </IonItemSliding>*/}
               </div>
             );
           })}

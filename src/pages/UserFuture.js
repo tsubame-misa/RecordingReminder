@@ -17,7 +17,7 @@ import {
   IonButton,
   useIonViewWillEnter,
 } from "@ionic/react";
-import { add, cloudyNight, trash } from "ionicons/icons";
+import { add, cloudyNight, ellipsisHorizontal, trash } from "ionicons/icons";
 import { convertDate, CmpTime } from "./Future";
 
 const UserFuture = () => {
@@ -69,22 +69,25 @@ const UserFuture = () => {
           .map((d, id) => {
             return (
               <div>
-                <IonButton
-                  fill="clear"
-                  expand="full"
-                  color="dark"
-                  key={id}
-                  onClick={() => {
-                    setID(id);
-                    console.log(id);
-                    setShowAlert(true);
-                    //showData();
-                  }}
-                >
+                <IonItem>
                   {d.channel} &emsp;
                   {convertDate(d.date)} &emsp;
                   {d.name}
-                </IonButton>
+                  <IonButton
+                    fill="clear"
+                    expand="full"
+                    color="dark"
+                    key={id}
+                    onClick={() => {
+                      setID(id);
+                      console.log(id);
+                      setShowAlert(true);
+                      //showData();
+                    }}
+                  >
+                    <IonItem icon={ellipsisHorizontal}></IonItem>
+                  </IonButton>
+                </IonItem>
               </div>
             );
           })}
