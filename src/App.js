@@ -24,10 +24,10 @@ import {
 } from "ionicons/icons";
 import UserFuture from "./pages/UserFuture";
 import UserPast from "./pages/UserPast";
-import Tab3 from "./pages/Tab3";
+import UserSetting from "./pages/UserSetting";
 import Future from "./pages/Future";
 import Past from "./pages/Past";
-import Tab6 from "./pages/Tab6";
+import Setting from "./pages/Setting";
 import AddProgram from "./add_program/index";
 import NotiSetting from "./setting/noti";
 import ColSetting from "./setting/color";
@@ -55,9 +55,18 @@ import "./theme/variables.css";
 const App = () => {
   const [ID, setID] = useState(null);
   const path = window.location.pathname;
-  console.log(path);
   const pathList = path.split("/");
-  console.log(pathList);
+
+  if (!("notiDate" in localStorage)) {
+    localStorage.setItem("notiDate", JSON.stringify("pre"));
+  }
+
+  if (!("notiTime" in localStorage)) {
+    localStorage.setItem(
+      "notiTime",
+      JSON.stringify("2000-01-01T22:00:00+09:00")
+    );
+  }
 
   if (ID === null && path === "/user/future") {
     setID(1);
@@ -107,7 +116,7 @@ const App = () => {
                   exact={true}
                 />
                 <Route path="/user/past" component={UserPast} exact={true} />
-                <Route path="/user/tab3" component={Tab3} />
+                <Route path="/user/setting" component={UserSetting} />
                 <Route path="/user/noti_setting" component={NotiSetting} />
                 <Route path="/user/color_setting" component={ColSetting} />
                 <Route
@@ -125,9 +134,9 @@ const App = () => {
                   <IonIcon icon={ellipse} />
                   <IonLabel>PastU</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="tab3" href="/user/tab3">
+                <IonTabButton tab="setting" href="/user/setting">
                   <IonIcon icon={square} />
-                  <IonLabel>Tab 3</IonLabel>
+                  <IonLabel>Setting</IonLabel>
                 </IonTabButton>
               </IonTabBar>
             </IonTabs>
@@ -137,7 +146,7 @@ const App = () => {
               <IonRouterOutlet>
                 <Route path="/host/future" component={Future} exact={true} />
                 <Route path="/host/past" component={Past} exact={true} />
-                <Route path="/host/tab6" component={Tab6} />
+                <Route path="/host/setting" component={Setting} />
                 <Route path="/host/add_program" component={AddProgram} />
                 <Route path="/host/noti_setting" component={NotiSetting} />
                 <Route
@@ -155,9 +164,9 @@ const App = () => {
                   <IonIcon icon={ellipse} />
                   <IonLabel>Past</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="tab6" href="/host/tab6">
+                <IonTabButton tab="setting" href="/host/setting">
                   <IonIcon icon={square} />
-                  <IonLabel>Tab 6</IonLabel>
+                  <IonLabel>Setting</IonLabel>
                 </IonTabButton>
               </IonTabBar>
             </IonTabs>

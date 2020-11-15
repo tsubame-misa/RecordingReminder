@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   IonContent,
   IonHeader,
@@ -19,18 +19,38 @@ import {
   IonItemDivider,
   IonList,
 } from "@ionic/react";
-import { add, contractOutline, trash } from "ionicons/icons";
+import { add, contractOutline, map, trash } from "ionicons/icons";
 import { useState } from "react";
 import notifications from "../notification/index";
 import { convertDate } from "../pages/Future";
+import { isComputedPropertyName } from "typescript";
 
 const Addprogram = () => {
   const [programName, setProgramName] = useState();
   const [text, setText] = useState();
   const [selectedChannel, setSelectedChannel] = useState(null);
   const [selectedDate, setSelectedDate] = useState();
-  const [perfTime, setPerfTime] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
   const [artist, setArtist] = useState();
+  const [notiDate, setNotiDate] = useState();
+  const [notiTime, setNotiTime] = useState();
+
+  useEffect(() => {
+    if ("notiDate" in localStorage) {
+      setNotiDate(JSON.parse(localStorage.getItem("notiDate")));
+    } else {
+      setNotiDate("pre");
+    }
+  }, []);
+
+  useEffect(() => {
+    if ("notiTime" in localStorage) {
+      setNotiTime(JSON.parse(localStorage.getItem("notiTime")));
+    } else {
+      setNotiTime("2000-01-01T22:00:00+09:00");
+    }
+  }, []);
 
   const channel = [
     { name: "NHK総合" },
@@ -70,7 +90,8 @@ const Addprogram = () => {
       date: selectedDate,
       name: programName,
       artist: artist,
-      perfTime: perfTime,
+      startTime: startTime,
+      endTime: endTime,
       comment: text,
     };
 
@@ -86,11 +107,6 @@ const Addprogram = () => {
       0,
       0
     );
-    //通知
-    const diff = date.getTime() - current.getTime();
-    const second = Math.floor(diff / 1000);
-    console.log(second);
-    notifications.schedule(second);
 
     let datalist = JSON.parse(localStorage.getItem("data"));
     if (datalist === null) {
@@ -113,9 +129,78 @@ const Addprogram = () => {
     setSelectedDate(null);
     setProgramName(null);
     setArtist(null);
-    setPerfTime(null);
+    setStartTime(null);
+    setEndTime(null);
     setText(null);
-    //window.location.href = `/future`;
+    //window.location.href = `/host/future`;
+  };
+
+  const setNotification = () => {
+    let datalist = JSON.parse(localStorage.getItem("data"));
+    let d;
+    for (let i = 0; i < datalist.length; i++) {
+      d = CheckAndNoti(datalist[i].date, selectedDate);
+      if (d === 1) {
+        break;
+      }
+    }
+    /*datalist.map((d) => {
+      CheckAndNoti(d.date, selectedDate);
+    });*/
+  };
+
+  const CheckAndNoti = (a, b) => {
+    const dateListA = a.split(/[-T:]/);
+    const dateListB = b.split(/[-T:]/);
+    const dateB = new Date(
+      dateListB[0],
+      dateListB[1] - 1,
+      dateListB[2],
+      dateListB[3],
+      dateListB[4],
+      0,
+      0
+    );
+    console.log(dateB);
+
+    if (
+      dateListA[0] === dateListB[0] &&
+      dateListA[1] === dateListB[1] &&
+      dateListA[2] === dateListB[2]
+    ) {
+      //通知しない
+      return 0;
+    } else {
+      //通知する 000* 60 * 60*24
+      console.log("通知する！");
+
+      //let dateList = date.split(/[-T:]/);
+      const dateList = b.split(/[-T:]/);
+      const notiDateList = notiTime.split(/[-T:]/);
+      const current = new Date();
+      let y = dateList[0],
+        m = dateList[1],
+        d = dateListB[2];
+
+      if (notiDate === "pre") {
+        //一日引く
+        const dateTime = dateB.getTime() - 1000 * 60 * 60 * 24;
+        const newDate = new Date(dateTime);
+        y = newDate.getFullYear();
+        m = newDate.getMonth();
+        d = newDate.getDate();
+      }
+      console.log(notiDateList[3]);
+      const date = new Date(y, m, d, notiDateList[3], notiDateList[4], 0, 0);
+      console.log(date);
+      //通知
+      const diff = date.getTime() - current.getTime();
+      const second = Math.floor(diff / 1000);
+      console.log(second);
+      notifications.schedule(second);
+
+      return 1;
+    }
   };
 
   return (
@@ -181,10 +266,16 @@ const Addprogram = () => {
           <IonLabel>アーティスト出演時刻</IonLabel>
           {/*別の形式がいいかもしれない */}
           <IonDatetime
-            displayFormat="HH:mm ~ HH:mm"
-            placeholder="Select Date"
-            value={perfTime}
-            onIonChange={(e) => setPerfTime(e.detail.value)}
+            displayFormat="HH:mm"
+            placeholder="Start"
+            value={startTime}
+            onIonChange={(e) => setStartTime(e.detail.value)}
+          ></IonDatetime>
+          <IonDatetime
+            displayFormat="HH:mm"
+            placeholder="End"
+            value={endTime}
+            onIonChange={(e) => setEndTime(e.detail.value)}
           ></IonDatetime>
         </IonItem>
         <IonItem>
@@ -197,14 +288,9 @@ const Addprogram = () => {
         <IonButton
           expand="full"
           onClick={() => {
-            sendData(
-              selectedChannel,
-              selectedDate,
-              programName,
-              artist,
-              perfTime,
-              text
-            );
+            //同じ日にちのものがない確認し、なければ通知の予約をする
+            setNotification();
+            sendData();
           }}
         >
           登録

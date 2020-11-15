@@ -9,32 +9,16 @@ import {
   IonButton,
   IonIcon,
   IonList,
+  IonDatetime,
 } from "@ionic/react";
 import { convertDate, CmpTime } from "../pages/Future";
 import { contractOutline, trash } from "ionicons/icons";
 import { getDefaultLibFileName } from "typescript";
+import { IonReactMemoryRouter } from "@ionic/react-router";
 
 const NotiSetting = () => {
   const [data, setData] = useState([]);
-  const [ID, setID] = useState(null);
-
-  useEffect(() => {
-    if ("data" in localStorage) {
-      setData(JSON.parse(localStorage.getItem("data")));
-      console.log(data);
-    }
-  }, []);
-
-  const delItem = () => {
-    console.log(ID);
-    console.log(data[ID]);
-
-    /*setData((prevState) => {
-      prevState.splice(ID, 1);
-      localStorage.setItem("data", JSON.stringify(prevState));
-      return prevState;
-    });*/
-  };
+  const [notiTime, setNotiTime] = useState();
 
   if (data === []) {
     return <div>loading</div>;
@@ -42,34 +26,27 @@ const NotiSetting = () => {
 
   return (
     <IonPage>
-      {/*一つ遅れで消えちゃうう*/}
       <IonContent fullscreen>
-        {data != []
-          ? data
-              .filter((d) => {
-                return CmpTime(d.date) < 0;
-              })
-              .map((d, id) => {
-                return (
-                  <div>
-                    <IonButton key={id} fill="clear" expand="full" color="dark">
-                      {convertDate(d.date)} &emsp;
-                      {d.name}
-                      <IonButton
-                        fill="clear"
-                        key={id}
-                        onClick={() => {
-                          setID(id);
-                          delItem();
-                        }}
-                      >
-                        <IonIcon icon={trash}></IonIcon>
-                      </IonButton>
-                    </IonButton>
-                  </div>
-                );
-              })
-          : []}
+        <IonTitle>通知設定</IonTitle>
+        <IonItem>
+          前日の &emsp;
+          <IonDatetime
+            displayFormat="HH:mm"
+            placeholder={notiTime}
+            value={notiTime}
+            onIonChange={(e) => {
+              setNotiTime(e.detail.value);
+              console.log(notiTime);
+            }}
+          ></IonDatetime>
+        </IonItem>
+        <IonButton
+          onClick={() => {
+            console.log(notiTime);
+          }}
+        >
+          変更する
+        </IonButton>
       </IonContent>
     </IonPage>
   );
