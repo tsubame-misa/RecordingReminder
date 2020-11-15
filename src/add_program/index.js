@@ -199,7 +199,9 @@ const Addprogram = () => {
       const diff = date.getTime() - current.getTime();
       const second = Math.floor(diff / 1000);
       console.log(second);
-      notifications.schedule(second);
+      if (second > 0) {
+        notifications.schedule(second);
+      }
 
       return 1;
     }

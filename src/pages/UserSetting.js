@@ -69,7 +69,7 @@ const UserSetting = () => {
               displayFormat="HH:mm"
               placeholder={notiTime}
               value={notiTime}
-              //minuteValues="0,15,30,45"
+              minuteValues="0,15,30,45"
               onIonChange={(e) => {
                 setNotiTime(e.detail.value);
                 console.log(notiTime);

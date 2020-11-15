@@ -31,8 +31,9 @@ class Notifications {
           {
             title: "録画しましたか？",
             body: "",
-            id: 3,
+            id: 1, //変えたほうが良い？
             //minute秒後に通知
+            sound: "normail",
             schedule: { at: new Date(Date.now() + 1000 * minute) },
           },
         ],

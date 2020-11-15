@@ -14,6 +14,7 @@ import {
   IonTitle,
   IonContent,
   IonButton,
+  IonButtons,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
@@ -29,9 +30,9 @@ import Future from "./pages/Future";
 import Past from "./pages/Past";
 import Setting from "./pages/Setting";
 import AddProgram from "./add_program/index";
-import NotiSetting from "./setting/noti";
 import ColSetting from "./setting/color";
 import notifications from "./notification/index";
+import Detail from "./detail/index";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -88,11 +89,11 @@ const App = () => {
         <IonToolbar>
           {/*User と　Hostの切り替え時に前のページが残る*/}
           <IonTitle>Recording Reminder</IonTitle>
-          <IonButton href={returnUrl()}>
+          <IonButton slot="end" href={returnUrl()}>
             {pathList[1] === "user" ? (
-              <IonLabel>User</IonLabel>
+              <IonLabel>change to host</IonLabel>
             ) : (
-              <IonLabel>Host</IonLabel>
+              <IonLabel>change to user</IonLabel>
             )}
           </IonButton>
         </IonToolbar>
@@ -116,7 +117,6 @@ const App = () => {
                 />
                 <Route path="/user/past" component={UserPast} exact={true} />
                 <Route path="/user/setting" component={UserSetting} />
-                <Route path="/user/noti_setting" component={NotiSetting} />
                 <Route path="/user/color_setting" component={ColSetting} />
                 <Route
                   path="/"
@@ -147,7 +147,7 @@ const App = () => {
                 <Route path="/host/past" component={Past} exact={true} />
                 <Route path="/host/setting" component={Setting} />
                 <Route path="/host/add_program" component={AddProgram} />
-                <Route path="/host/noti_setting" component={NotiSetting} />
+                <Route path="/host/detail/:key" component={Detail} />
                 <Route
                   path="/"
                   render={() => <Redirect to="/host/future" />}

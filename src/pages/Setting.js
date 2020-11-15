@@ -22,12 +22,7 @@ const Setting = () => {
     <IonPage>
       <IonTitle>tab6</IonTitle>
       <IonContent fullscreen>
-        <IonItem>
-          通知
-          {/*<IonButton href="/host/noti_setting">
-            <IonIcon icon={chevronForwardOutline}></IonIcon>
-  </IonButton>*/}
-        </IonItem>
+        <IonItem>通知</IonItem>
         <IonItem>
           カラー
           <IonButton href="/color_setting">

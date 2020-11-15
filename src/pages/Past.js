@@ -75,10 +75,8 @@ const Past = () => {
                     fill="clear"
                     expand="full"
                     color="dark"
-                    onClick={() => {
-                      setID(id);
-                      console.log(id);
-                    }}
+                    href={`/host/detail/${id}`}
+                    onClick={() => {}}
                   >
                     <IonItem>
                       {convertDate(d.date)} &emsp;
