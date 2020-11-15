@@ -138,15 +138,16 @@ const Addprogram = () => {
   const setNotification = () => {
     let datalist = JSON.parse(localStorage.getItem("data"));
     let d;
-    for (let i = 0; i < datalist.length; i++) {
-      d = CheckAndNoti(datalist[i].date, selectedDate);
-      if (d === 1) {
-        break;
+    if (datalist === null) {
+      CheckAndNoti(selectedDate, selectedDate);
+    } else {
+      for (let i = 0; i < datalist.length; i++) {
+        d = CheckAndNoti(datalist[i].date, selectedDate);
+        if (d === 1) {
+          break;
+        }
       }
     }
-    /*datalist.map((d) => {
-      CheckAndNoti(d.date, selectedDate);
-    });*/
   };
 
   const CheckAndNoti = (a, b) => {
@@ -164,6 +165,7 @@ const Addprogram = () => {
     console.log(dateB);
 
     if (
+      a !== b &&
       dateListA[0] === dateListB[0] &&
       dateListA[1] === dateListB[1] &&
       dateListA[2] === dateListB[2]
@@ -174,7 +176,6 @@ const Addprogram = () => {
       //通知する 000* 60 * 60*24
       console.log("通知する！");
 
-      //let dateList = date.split(/[-T:]/);
       const dateList = b.split(/[-T:]/);
       const notiDateList = notiTime.split(/[-T:]/);
       const current = new Date();
@@ -190,10 +191,10 @@ const Addprogram = () => {
         m = newDate.getMonth();
         d = newDate.getDate();
       }
-      console.log(notiDateList[3]);
+
       const date = new Date(y, m, d, notiDateList[3], notiDateList[4], 0, 0);
-      console.log(date);
-      //通知
+
+      //差分の秒数後に通知
       const diff = date.getTime() - current.getTime();
       const second = Math.floor(diff / 1000);
       console.log(second);

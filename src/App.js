@@ -89,7 +89,6 @@ const App = () => {
           {/*User と　Hostの切り替え時に前のページが残る*/}
           <IonTitle>Recording Reminder</IonTitle>
           <IonButton href={returnUrl()}>
-            <IonIcon icon={triangle} />
             {pathList[1] === "user" ? (
               <IonLabel>User</IonLabel>
             ) : (
@@ -97,12 +96,12 @@ const App = () => {
             )}
           </IonButton>
         </IonToolbar>
-        <IonButton
+        {/*} <IonButton
           color="tertiary"
           onClick={() => notifications.schedule(8, 0)}
         >
           Schedule Notification
-        </IonButton>
+            </IonButton>*/}
       </IonHeader>
 
       <IonContent>

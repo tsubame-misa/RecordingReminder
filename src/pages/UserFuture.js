@@ -25,27 +25,30 @@ const UserFuture = () => {
   const [ID, setID] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
-  /*useIonViewWillEnter(() => {
+  useIonViewWillEnter(() => {
     if ("data" in localStorage) {
       setData(JSON.parse(localStorage.getItem("data")));
-      console.log(data);
     }
   });
-*/
+  console.log(data);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if ("data" in localStorage) {
       setData(JSON.parse(localStorage.getItem("data")));
-      console.log(data);
     }
   }, []);
+  console.log(data);*/
 
   const showData = () => {
     console.log(data);
   };
 
   if (data === []) {
-    return <div>loading...</div>;
+    return (
+      <IonPage>
+        <IonContent>Loading....</IonContent>
+      </IonPage>
+    );
   }
 
   return (
@@ -67,7 +70,7 @@ const UserFuture = () => {
                     setID(id);
                     console.log(id);
                     setShowAlert(true);
-                    showData();
+                    //showData();
                   }}
                 >
                   {d.channel} &emsp;
@@ -77,19 +80,17 @@ const UserFuture = () => {
               </div>
             );
           })}
-        {data != undefined ? (
-          <IonAlert
-            isOpen={showAlert}
-            onDidDismiss={() => setShowAlert(false)}
-            cssClass="my-custom-class"
-            header={data[ID]}
-            subHeader={"Subtitle"}
-            message={"This is an alert message."}
-            buttons={["OK"]}
-          />
-        ) : (
-          []
-        )}
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => {
+            setShowAlert(false);
+          }}
+          cssClass="my-custom-class"
+          header={data}
+          subHeader={"Subtitle"}
+          message={"This is an alert message."}
+          buttons={["OK"]}
+        />
 
         {/*<IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton href="/add_program">
