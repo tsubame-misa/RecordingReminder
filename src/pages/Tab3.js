@@ -23,13 +23,13 @@ const Tab3 = () => {
       <IonContent fullscreen>
         <IonItem>
           通知
-          <IonButton href="/noti_setting">
+          <IonButton href="/user/noti_setting">
             <IonIcon icon={chevronForwardOutline}></IonIcon>
           </IonButton>
         </IonItem>
         <IonItem>
           カラー
-          <IonButton href="/color_setting">
+          <IonButton href="/user/color_setting">
             <IonIcon icon={chevronForwardOutline}></IonIcon>
           </IonButton>
         </IonItem>

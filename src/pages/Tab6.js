@@ -20,7 +20,21 @@ import {
 const Tab6 = () => {
   return (
     <IonPage>
-      <IonContent fullscreen>tab6</IonContent>
+      <IonTitle>tab6</IonTitle>
+      <IonContent fullscreen>
+        <IonItem>
+          通知
+          <IonButton href="/host/noti_setting">
+            <IonIcon icon={chevronForwardOutline}></IonIcon>
+          </IonButton>
+        </IonItem>
+        <IonItem>
+          カラー
+          <IonButton href="/color_setting">
+            <IonIcon icon={chevronForwardOutline}></IonIcon>
+          </IonButton>
+        </IonItem>
+      </IonContent>
     </IonPage>
   );
 };

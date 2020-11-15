@@ -33,7 +33,7 @@ class Notifications {
             body: "helllo",
             id: 3,
             //10秒後に通知
-            schedule: { at: new Date(Date.now() + 1000 * 5) },
+            schedule: { at: new Date(Date.now() + 1000 * minute) },
             /*schedule: {
               at: { day: 15, month: 11, year: 2020, hour: 5, minute: 25 },
             },*/

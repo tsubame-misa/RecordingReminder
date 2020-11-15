@@ -16,7 +16,12 @@ import {
   IonButton,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, square, triangle } from "ionicons/icons";
+import {
+  ellipse,
+  returnUpForwardOutline,
+  square,
+  triangle,
+} from "ionicons/icons";
 import UserFuture from "./pages/UserFuture";
 import UserPast from "./pages/UserPast";
 import Tab3 from "./pages/Tab3";
@@ -48,13 +53,23 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 const App = () => {
-  const [ID, setID] = useState();
+  const [ID, setID] = useState(null);
+  const path = window.location.pathname;
+  console.log(path);
+  const pathList = path.split("/");
+  console.log(pathList);
 
-  const settingID = () => {
-    if (ID == 0) {
-      setID(1);
+  if (ID === null && path === "/user/future") {
+    setID(1);
+  } else if (ID === null && path === "/host/future") {
+    setID(0);
+  }
+
+  const returnUrl = () => {
+    if (ID === 1) {
+      return "/host/future";
     } else {
-      setID(0);
+      return "/user/future";
     }
   };
 
@@ -64,13 +79,13 @@ const App = () => {
         <IonToolbar>
           {/*User と　Hostの切り替え時に前のページが残る*/}
           <IonTitle>Recording Reminder</IonTitle>
-          <IonButton
-            onClick={() => {
-              settingID();
-            }}
-          >
+          <IonButton href={returnUrl()}>
             <IonIcon icon={triangle} />
-            {ID == 0 ? <IonLabel>User</IonLabel> : <IonLabel>Host</IonLabel>}
+            {pathList[1] === "user" ? (
+              <IonLabel>User</IonLabel>
+            ) : (
+              <IonLabel>Host</IonLabel>
+            )}
           </IonButton>
         </IonToolbar>
         <IonButton
@@ -83,35 +98,34 @@ const App = () => {
 
       <IonContent>
         <IonReactRouter>
-          {ID == 0 ? (
+          {pathList[1] === "user" ? (
             <IonTabs>
               <IonRouterOutlet>
                 <Route
-                  path="/user_future"
+                  path="/user/future"
                   component={UserFuture}
                   exact={true}
                 />
-                <Route path="/user_past" component={UserPast} exact={true} />
-                <Route path="/tab3" component={Tab3} />
-                <Route path="/noti_setting" component={NotiSetting} />
-
-                <Route path="/color_setting" component={ColSetting} />
+                <Route path="/user/past" component={UserPast} exact={true} />
+                <Route path="/user/tab3" component={Tab3} />
+                <Route path="/user/noti_setting" component={NotiSetting} />
+                <Route path="/user/color_setting" component={ColSetting} />
                 <Route
                   path="/"
-                  render={() => <Redirect to="/user_future" />}
+                  render={() => <Redirect to="/user/future" />}
                   exact={true}
                 />
               </IonRouterOutlet>
               <IonTabBar slot="bottom">
-                <IonTabButton tab="user_future" href="/user_future">
+                <IonTabButton tab="user_future" href="/user/future">
                   <IonIcon icon={triangle} />
                   <IonLabel>FutureU</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="user_past" href="/user_past">
+                <IonTabButton tab="user_past" href="/user/past">
                   <IonIcon icon={ellipse} />
                   <IonLabel>PastU</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="tab3" href="/tab3">
+                <IonTabButton tab="tab3" href="/user/tab3">
                   <IonIcon icon={square} />
                   <IonLabel>Tab 3</IonLabel>
                 </IonTabButton>
@@ -121,26 +135,27 @@ const App = () => {
             <IonTabs>
               {/*host*/}
               <IonRouterOutlet>
-                <Route path="/future" component={Future} exact={true} />
-                <Route path="/past" component={Past} exact={true} />
-                <Route path="/tab6" component={Tab6} />
-                <Route path="/add_program" component={AddProgram} />
+                <Route path="/host/future" component={Future} exact={true} />
+                <Route path="/host/past" component={Past} exact={true} />
+                <Route path="/host/tab6" component={Tab6} />
+                <Route path="/host/add_program" component={AddProgram} />
+                <Route path="/host/noti_setting" component={NotiSetting} />
                 <Route
                   path="/"
-                  render={() => <Redirect to="/future" />}
+                  render={() => <Redirect to="/host/future" />}
                   exact={true}
                 />
               </IonRouterOutlet>
               <IonTabBar slot="bottom">
-                <IonTabButton tab="Future" href="/future">
+                <IonTabButton tab="Future" href="/host/future">
                   <IonIcon icon={triangle} />
                   <IonLabel>Future</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="Past" href="/past">
+                <IonTabButton tab="Past" href="/host/past">
                   <IonIcon icon={ellipse} />
                   <IonLabel>Past</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="tab6" href="/tab6">
+                <IonTabButton tab="tab6" href="/host/tab6">
                   <IonIcon icon={square} />
                   <IonLabel>Tab 6</IonLabel>
                 </IonTabButton>
