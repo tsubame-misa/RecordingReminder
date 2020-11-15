@@ -14,6 +14,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonAlert,
+  IonLabel,
 } from "@ionic/react";
 import {
   add,
@@ -54,7 +55,9 @@ const UserSetting = () => {
     <IonPage>
       <IonContent fullscreen>
         <IonCard>
-          <IonTitle>通知</IonTitle>
+          <IonItem lines="none" color="light">
+            通知
+          </IonItem>
           <IonItem>
             <IonSelect
               value={date}
@@ -75,15 +78,17 @@ const UserSetting = () => {
                 console.log(notiTime);
               }}
             ></IonDatetime>
+            <IonButton
+              slot="end"
+              color="dark"
+              onClick={() => {
+                sendData();
+                console.log(notiTime);
+              }}
+            >
+              変更する
+            </IonButton>
           </IonItem>
-          <IonButton
-            onClick={() => {
-              sendData();
-              console.log(notiTime);
-            }}
-          >
-            変更する
-          </IonButton>
           <IonAlert
             isOpen={showAlert}
             onDidDismiss={() => setShowAlert(false)}
@@ -94,7 +99,12 @@ const UserSetting = () => {
         </IonCard>
         <IonItem>
           カラー
-          <IonButton href="/user/color_setting">
+          <IonButton
+            href="/user/color_setting"
+            color="dark"
+            fill="fill"
+            slot="end"
+          >
             <IonIcon icon={chevronForwardOutline}></IonIcon>
           </IonButton>
         </IonItem>

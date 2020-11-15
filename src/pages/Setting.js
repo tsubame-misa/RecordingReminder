@@ -20,12 +20,11 @@ import {
 const Setting = () => {
   return (
     <IonPage>
-      <IonTitle>tab6</IonTitle>
       <IonContent fullscreen>
-        <IonItem>通知</IonItem>
+        <IonItem>Host Setting</IonItem>
         <IonItem>
           カラー
-          <IonButton href="/color_setting">
+          <IonButton slot="end" href="/color_setting" color="dark" fill="none">
             <IonIcon icon={chevronForwardOutline}></IonIcon>
           </IonButton>
         </IonItem>

@@ -290,6 +290,7 @@ const Addprogram = () => {
           ></IonTextarea>
         </IonItem>
         <IonButton
+          color="dark"
           expand="full"
           onClick={() => {
             //同じ日にちのものがない確認し、なければ通知の予約をする

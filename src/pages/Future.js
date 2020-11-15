@@ -120,7 +120,7 @@ const Future = () => {
         )}
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton href="/host/add_program">
+          <IonFabButton href="/host/add_program" color="dark">
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>

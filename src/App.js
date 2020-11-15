@@ -22,6 +22,9 @@ import {
   returnUpForwardOutline,
   square,
   triangle,
+  playCircleOutline,
+  playBackCircleOutline,
+  settings,
 } from "ionicons/icons";
 import UserFuture from "./pages/UserFuture";
 import UserPast from "./pages/UserPast";
@@ -86,10 +89,10 @@ const App = () => {
   return (
     <IonApp>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="light">
           {/*User と　Hostの切り替え時に前のページが残る*/}
           <IonTitle>Recording Reminder</IonTitle>
-          <IonButton slot="end" href={returnUrl()}>
+          <IonButton fill="outline" color="dark" slot="end" href={returnUrl()}>
             {pathList[1] === "user" ? (
               <IonLabel>change to host</IonLabel>
             ) : (
@@ -124,17 +127,17 @@ const App = () => {
                   exact={true}
                 />
               </IonRouterOutlet>
-              <IonTabBar slot="bottom">
+              <IonTabBar slot="bottom" color="light">
                 <IonTabButton tab="user_future" href="/user/future">
-                  <IonIcon icon={triangle} />
-                  <IonLabel>FutureU</IonLabel>
+                  <IonIcon icon={playCircleOutline} />
+                  <IonLabel>Future</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="user_past" href="/user/past">
-                  <IonIcon icon={ellipse} />
-                  <IonLabel>PastU</IonLabel>
+                  <IonIcon icon={playBackCircleOutline} />
+                  <IonLabel>Past</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="setting" href="/user/setting">
-                  <IonIcon icon={square} />
+                  <IonIcon icon={settings} />
                   <IonLabel>Setting</IonLabel>
                 </IonTabButton>
               </IonTabBar>
@@ -154,17 +157,17 @@ const App = () => {
                   exact={true}
                 />
               </IonRouterOutlet>
-              <IonTabBar slot="bottom">
+              <IonTabBar slot="bottom" color="light">
                 <IonTabButton tab="Future" href="/host/future">
-                  <IonIcon icon={triangle} />
+                  <IonIcon icon={playCircleOutline} />
                   <IonLabel>Future</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="Past" href="/host/past">
-                  <IonIcon icon={ellipse} />
+                  <IonIcon icon={playBackCircleOutline} />
                   <IonLabel>Past</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="setting" href="/host/setting">
-                  <IonIcon icon={square} />
+                  <IonIcon icon={settings} />
                   <IonLabel>Setting</IonLabel>
                 </IonTabButton>
               </IonTabBar>
