@@ -73,6 +73,7 @@ const Addprogram = () => {
     { name: "高木雄也" },
     { name: "八乙女光" },
     { name: "藪宏太" },
+    { name: "全員" },
   ];
 
   const sendData = () => {

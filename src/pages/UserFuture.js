@@ -21,7 +21,15 @@ import { add, cloudyNight, trash } from "ionicons/icons";
 import { convertDate, CmpTime } from "./Future";
 
 const UserFuture = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      artist: "有岡大貴",
+      channel: "NHK総合",
+      comment: "",
+      date: "2020-11-18T18:31:16.742+09:00",
+      name: "oooooooooo",
+    },
+  ]);
   const [ID, setID] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -86,8 +94,8 @@ const UserFuture = () => {
             setShowAlert(false);
           }}
           cssClass="my-custom-class"
-          header={data}
-          subHeader={"Subtitle"}
+          header={ID}
+          subHeader={data[0]}
           message={"This is an alert message."}
           buttons={["OK"]}
         />
