@@ -35,17 +35,6 @@ const Past = () => {
     }
   }, []);
 
-  /*const delItem = (ID) => {
-    console.log("del", ID);
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].id === ID) {
-        const newData = data.splice(i, 1);
-        console.log(newData);
-        //  localStorage.setItem("data", JSON.stringify(newData));
-        break;
-      }
-    }
-  };*/
   const delItem = (ID) => {
     console.log("del", ID);
     for (let i = 0; i < data.length; i++) {

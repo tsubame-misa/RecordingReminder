@@ -93,7 +93,11 @@ const Addprogram = () => {
       artist === null
     ) {
       alert("記入漏れがあります");
+      return;
     }
+
+    //同じ日にちのものがない確認し、なければ通知の予約をする
+    setNotification();
 
     const data = {
       channel: selectedChannel,
@@ -144,7 +148,7 @@ const Addprogram = () => {
     setStartTime(null);
     setEndTime(null);
     setText(null);
-    //window.location.href = `/host/future`;
+
     history.push("/host/future");
   };
 
@@ -305,8 +309,6 @@ const Addprogram = () => {
           color="dark"
           expand="full"
           onClick={() => {
-            //同じ日にちのものがない確認し、なければ通知の予約をする
-            setNotification();
             sendData();
           }}
         >

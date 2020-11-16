@@ -34,7 +34,7 @@ const UserPast = () => {
     }
   }, []);
 
-  const delItem = (ID) => {
+  /*const delItem = (ID) => {
     console.log("del", ID);
     setData((prevState) => {
       prevState.splice(ID, 1);
@@ -43,7 +43,22 @@ const UserPast = () => {
       return prevState;
     });
   };
-  console.log(data);
+  console.log(data);*/
+
+  const delItem = (ID) => {
+    console.log("del", ID);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === ID) {
+        setData((prevState) => {
+          prevState.splice(i, 1);
+          console.log(prevState);
+          localStorage.setItem("data", JSON.stringify(prevState));
+          return prevState;
+        });
+        break;
+      }
+    }
+  };
 
   if (data === []) {
     return <div>loading</div>;
@@ -76,8 +91,8 @@ const UserPast = () => {
                     fill="none"
                     color="dark"
                     onClick={() => {
-                      setID(id);
-                      delItem(id);
+                      setID(data[id].id);
+                      delItem(data[id].id);
                     }}
                   >
                     <IonIcon icon={trash}></IonIcon>

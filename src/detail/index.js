@@ -19,7 +19,7 @@ import {
   IonItemDivider,
   IonList,
 } from "@ionic/react";
-import { add, contractOutline, map, trash } from "ionicons/icons";
+import { add, contractOutline, key, map, trash } from "ionicons/icons";
 import { useState } from "react";
 import notifications from "../notification/index";
 import { convertDate } from "../pages/Future";
@@ -37,27 +37,11 @@ const Detail = () => {
   const [notiDate, setNotiDate] = useState();
   const [notiTime, setNotiTime] = useState();
   const [data, setData] = useState();
-  const key = useParams();
+  const item = useParams();
 
   useEffect(() => {
     if ("data" in localStorage) {
-      setNotiDate(JSON.parse(localStorage.getItem("data")));
-    }
-  }, []);
-
-  useEffect(() => {
-    if ("notiDate" in localStorage) {
-      setNotiDate(JSON.parse(localStorage.getItem("notiDate")));
-    } else {
-      setNotiDate("pre");
-    }
-  }, []);
-
-  useEffect(() => {
-    if ("notiTime" in localStorage) {
-      setNotiTime(JSON.parse(localStorage.getItem("notiTime")));
-    } else {
-      setNotiTime("2000-01-01T22:00:00+09:00");
+      setData(JSON.parse(localStorage.getItem("data")));
     }
   }, []);
 
@@ -86,14 +70,14 @@ const Detail = () => {
   ];
 
   const sendData = () => {
-    if (
+    /* if (
       selectedChannel === null ||
       selectedDate === null ||
       programName === null ||
       artist === null
     ) {
       alert("記入漏れがあります");
-    }
+    }*/
 
     const data = {
       channel: selectedChannel,
@@ -119,6 +103,19 @@ const Detail = () => {
     );
 
     let datalist = JSON.parse(localStorage.getItem("data"));
+
+    for (let i = 0; i < data.length; i++) {
+      if (datalist[i].id === item.key) {
+        setData((prevState) => {
+          prevState.splice(i, 1);
+          console.log(prevState);
+          localStorage.setItem("data", JSON.stringify(prevState));
+          return prevState;
+        });
+        break;
+      }
+    }
+
     if (datalist === null) {
       datalist = [data];
     } else {
@@ -144,6 +141,7 @@ const Detail = () => {
     setText(null);
     //window.location.href = `/host/future`;
   };
+  console.log(item);
 
   return (
     <IonPage>
@@ -158,8 +156,8 @@ const Detail = () => {
       <IonContent>
         <IonItem>
           <IonInput
-            value={data}
-            placeholder="番組名"
+            value={programName}
+            placeholder={data?.[0].name}
             onIonChange={(e) => setProgramName(e.detail.value)}
           ></IonInput>
         </IonItem>
@@ -167,6 +165,7 @@ const Detail = () => {
           <IonLabel>チャンネル名</IonLabel>
           <IonSelect
             value={selectedChannel}
+            placeholder={data?.[0].channel}
             okText="Okay"
             cancelText="Dismiss"
             onIonChange={(e) => {
@@ -182,7 +181,7 @@ const Detail = () => {
           <IonLabel>日時</IonLabel>
           <IonDatetime
             displayFormat="YYYY/MM/DD/ HH:mm"
-            placeholder="Select Date"
+            placeholder={data?.[0].date}
             value={selectedDate}
             onIonChange={(e) => setSelectedDate(e.detail.value)}
           ></IonDatetime>
@@ -192,6 +191,7 @@ const Detail = () => {
           <IonLabel>アーティスト</IonLabel>
           <IonSelect
             value={artist}
+            placeholder={data?.[0].artist}
             okText="Okay"
             cancelText="Dismiss"
             onIonChange={(e) => {
@@ -209,13 +209,13 @@ const Detail = () => {
           {/*別の形式がいいかもしれない */}
           <IonDatetime
             displayFormat="HH:mm"
-            placeholder="Start"
+            placeholder={data?.[0].startTime}
             value={startTime}
             onIonChange={(e) => setStartTime(e.detail.value)}
           ></IonDatetime>
           <IonDatetime
             displayFormat="HH:mm"
-            placeholder="End"
+            placeholder={data?.[0].endTime}
             value={endTime}
             onIonChange={(e) => setEndTime(e.detail.value)}
           ></IonDatetime>
@@ -224,6 +224,7 @@ const Detail = () => {
           <IonTextarea
             placeholder="その他・コメント"
             value={text}
+            placeholder={data?.[0].comment}
             onIonChange={(e) => setText(e.detail.value)}
           ></IonTextarea>
         </IonItem>

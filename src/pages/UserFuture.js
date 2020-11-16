@@ -24,20 +24,13 @@ const UserFuture = () => {
   const [data, setData] = useState([]);
   const [ID, setID] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [date, setDate] = useState();
 
   useIonViewWillEnter(() => {
     if ("data" in localStorage) {
       setData(JSON.parse(localStorage.getItem("data")));
     }
   });
-  console.log(data);
-
-  /* useEffect(() => {
-    if ("data" in localStorage) {
-      setData(JSON.parse(localStorage.getItem("data")));
-    }
-  }, []);
-  console.log(data);*/
 
   if (data === []) {
     return (
@@ -68,9 +61,10 @@ const UserFuture = () => {
                     key={id}
                     onClick={() => {
                       setID(id);
-                      console.log(id);
-                      console.log(data[id]);
+                      //console.log(id);
+                      //console.log(data[id]);
                       setShowAlert(true);
+                      setDate(convertDate(data[id].date));
                       //showData();
                     }}
                   >
@@ -86,10 +80,10 @@ const UserFuture = () => {
             setShowAlert(false);
           }}
           cssClass="my-custom-class"
-          header={ID}
+          header={data[ID]?.name}
           // オプショナルチェイニングoptional chaining演算子 ?.
-          subHeader={data[ID]?.channel}
-          message={"This is an alert message."}
+          subHeader={data[ID]?.channel + " " + date}
+          message={data[ID]?.artist + " " + data[ID]?.comment}
           buttons={["OK"]}
         />
       </IonContent>

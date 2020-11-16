@@ -35,6 +35,7 @@ export const convertDate = (input) => {
     dateList[3] +
     ":" +
     dateList[4];
+  console.log(createdDay);
   return createdDay;
 };
 
@@ -62,15 +63,6 @@ const Future = () => {
     }
   }, []);
 
-  /*const delItem = (ID) => {
-    console.log("del", ID);
-    setData((prevState) => {
-      prevState.splice(0, 1);
-      console.log(prevState);
-      //localStorage.setItem("data", JSON.stringify(prevState));
-      return prevState;
-    });
-  };*/
   const delItem = (ID) => {
     console.log("del", ID);
     for (let i = 0; i < data.length; i++) {
