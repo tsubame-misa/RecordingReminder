@@ -75,8 +75,8 @@ const UserFuture = () => {
                   {d.name}
                   <IonButton
                     fill="clear"
-                    expand="full"
                     color="dark"
+                    slot="end"
                     key={id}
                     onClick={() => {
                       setID(id);
@@ -85,7 +85,7 @@ const UserFuture = () => {
                       //showData();
                     }}
                   >
-                    <IonItem icon={ellipsisHorizontal}></IonItem>
+                    <IonIcon icon={ellipsisHorizontal}></IonIcon>
                   </IonButton>
                 </IonItem>
               </div>

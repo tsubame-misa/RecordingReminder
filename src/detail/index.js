@@ -24,6 +24,7 @@ import { useState } from "react";
 import notifications from "../notification/index";
 import { convertDate } from "../pages/Future";
 import { isComputedPropertyName } from "typescript";
+import { useParams } from "react-router";
 
 const Detail = () => {
   const [programName, setProgramName] = useState();
@@ -35,6 +36,14 @@ const Detail = () => {
   const [artist, setArtist] = useState();
   const [notiDate, setNotiDate] = useState();
   const [notiTime, setNotiTime] = useState();
+  const [data, setData] = useState();
+  const key = useParams();
+
+  useEffect(() => {
+    if ("data" in localStorage) {
+      setNotiDate(JSON.parse(localStorage.getItem("data")));
+    }
+  }, []);
 
   useEffect(() => {
     if ("notiDate" in localStorage) {
@@ -136,91 +145,20 @@ const Detail = () => {
     //window.location.href = `/host/future`;
   };
 
-  const setNotification = () => {
-    let datalist = JSON.parse(localStorage.getItem("data"));
-    let d;
-    if (datalist === null) {
-      CheckAndNoti(selectedDate, selectedDate);
-    } else {
-      for (let i = 0; i < datalist.length; i++) {
-        d = CheckAndNoti(datalist[i].date, selectedDate);
-        if (d === 1) {
-          break;
-        }
-      }
-    }
-  };
-
-  const CheckAndNoti = (a, b) => {
-    const dateListA = a.split(/[-T:]/);
-    const dateListB = b.split(/[-T:]/);
-    const dateB = new Date(
-      dateListB[0],
-      dateListB[1] - 1,
-      dateListB[2],
-      dateListB[3],
-      dateListB[4],
-      0,
-      0
-    );
-    console.log(dateB);
-
-    if (
-      a !== b &&
-      dateListA[0] === dateListB[0] &&
-      dateListA[1] === dateListB[1] &&
-      dateListA[2] === dateListB[2]
-    ) {
-      //通知しない
-      return 0;
-    } else {
-      //通知する 000* 60 * 60*24
-      console.log("通知する！");
-
-      const dateList = b.split(/[-T:]/);
-      const notiDateList = notiTime.split(/[-T:]/);
-      const current = new Date();
-      let y = dateList[0],
-        m = dateList[1],
-        d = dateListB[2];
-
-      if (notiDate === "pre") {
-        //一日引く
-        const dateTime = dateB.getTime() - 1000 * 60 * 60 * 24;
-        const newDate = new Date(dateTime);
-        y = newDate.getFullYear();
-        m = newDate.getMonth();
-        d = newDate.getDate();
-      }
-
-      const date = new Date(y, m, d, notiDateList[3], notiDateList[4], 0, 0);
-
-      //差分の秒数後に通知
-      const diff = date.getTime() - current.getTime();
-      const second = Math.floor(diff / 1000);
-      console.log(second);
-      if (second > 0) {
-        notifications.schedule(second);
-      }
-
-      return 1;
-    }
-  };
-
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonBackButton defaultHref="/host/Past" />
           </IonButtons>
-          <IonTitle>番組を登録する</IonTitle>
+          <IonTitle>番組詳細</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonItem>
           <IonInput
-            value={programName}
+            value={data}
             placeholder="番組名"
             onIonChange={(e) => setProgramName(e.detail.value)}
           ></IonInput>
@@ -294,11 +232,10 @@ const Detail = () => {
           expand="full"
           onClick={() => {
             //同じ日にちのものがない確認し、なければ通知の予約をする
-            setNotification();
             sendData();
           }}
         >
-          登録
+          変更する
         </IonButton>
       </IonContent>
     </IonPage>

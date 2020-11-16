@@ -133,7 +133,7 @@ const Addprogram = () => {
     setStartTime(null);
     setEndTime(null);
     setText(null);
-    //window.location.href = `/host/future`;
+    window.location.href = `/host/future`;
   };
 
   const setNotification = () => {
