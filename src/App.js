@@ -68,6 +68,10 @@ const App = () => {
     localStorage.setItem("notiDate", JSON.stringify("pre"));
   }
 
+  if (!("count" in localStorage)) {
+    localStorage.setItem("count", JSON.stringify(0));
+  }
+
   if (!("notiTime" in localStorage)) {
     localStorage.setItem(
       "notiTime",

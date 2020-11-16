@@ -21,15 +21,7 @@ import { add, cloudyNight, ellipsisHorizontal, trash } from "ionicons/icons";
 import { convertDate, CmpTime } from "./Future";
 
 const UserFuture = () => {
-  const [data, setData] = useState([
-    {
-      artist: "有岡大貴",
-      channel: "NHK総合",
-      comment: "",
-      date: "2020-11-18T18:31:16.742+09:00",
-      name: "oooooooooo",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [ID, setID] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -46,10 +38,6 @@ const UserFuture = () => {
     }
   }, []);
   console.log(data);*/
-
-  const showData = () => {
-    console.log(data);
-  };
 
   if (data === []) {
     return (
@@ -81,6 +69,7 @@ const UserFuture = () => {
                     onClick={() => {
                       setID(id);
                       console.log(id);
+                      console.log(data[id]);
                       setShowAlert(true);
                       //showData();
                     }}
@@ -98,16 +87,11 @@ const UserFuture = () => {
           }}
           cssClass="my-custom-class"
           header={ID}
-          subHeader={data[0]}
+          // オプショナルチェイニングoptional chaining演算子 ?.
+          subHeader={data[ID]?.channel}
           message={"This is an alert message."}
           buttons={["OK"]}
         />
-
-        {/*<IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton href="/add_program">
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>*/}
       </IonContent>
     </IonPage>
   );

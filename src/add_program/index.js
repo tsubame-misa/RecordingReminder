@@ -24,6 +24,7 @@ import { useState } from "react";
 import notifications from "../notification/index";
 import { convertDate } from "../pages/Future";
 import { isComputedPropertyName } from "typescript";
+import { useHistory } from "react-router-dom";
 
 const Addprogram = () => {
   const [programName, setProgramName] = useState();
@@ -35,6 +36,8 @@ const Addprogram = () => {
   const [artist, setArtist] = useState();
   const [notiDate, setNotiDate] = useState();
   const [notiTime, setNotiTime] = useState();
+  const [count, setCount] = useState();
+  let history = useHistory();
 
   useEffect(() => {
     if ("notiDate" in localStorage) {
@@ -49,6 +52,12 @@ const Addprogram = () => {
       setNotiTime(JSON.parse(localStorage.getItem("notiTime")));
     } else {
       setNotiTime("2000-01-01T22:00:00+09:00");
+    }
+  }, []);
+
+  useEffect(() => {
+    if ("count" in localStorage) {
+      setCount(JSON.parse(localStorage.getItem("count")));
     }
   }, []);
 
@@ -94,6 +103,7 @@ const Addprogram = () => {
       startTime: startTime,
       endTime: endTime,
       comment: text,
+      id: count + 1,
     };
 
     const dateList = data.date.split(/[-T:]/);
@@ -125,6 +135,7 @@ const Addprogram = () => {
     });
 
     localStorage.setItem("data", JSON.stringify(datalist));
+    localStorage.setItem("count", JSON.stringify(count + 1));
 
     setSelectedChannel(null);
     setSelectedDate(null);
@@ -133,7 +144,8 @@ const Addprogram = () => {
     setStartTime(null);
     setEndTime(null);
     setText(null);
-    window.location.href = `/host/future`;
+    //window.location.href = `/host/future`;
+    history.push("/host/future");
   };
 
   const setNotification = () => {

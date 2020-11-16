@@ -35,27 +35,31 @@ const Past = () => {
     }
   }, []);
 
-  /*useEffect(() => {
-    const getTasks = async () => {
-      //const tasksString = await get(TASKS_STORAGE);
-      const tasksString = localStorage.getItem("data");
-      const taskData = tasksString ? JSON.parse(tasksString) : [];
-      console.log(taskData);
-      setData(taskData);
-    };
-    getTasks();
-  }, [get]);*/
-
+  /*const delItem = (ID) => {
+    console.log("del", ID);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === ID) {
+        const newData = data.splice(i, 1);
+        console.log(newData);
+        //  localStorage.setItem("data", JSON.stringify(newData));
+        break;
+      }
+    }
+  };*/
   const delItem = (ID) => {
     console.log("del", ID);
-    setData((prevState) => {
-      prevState.splice(ID, 1);
-      console.log(prevState);
-      localStorage.setItem(TASKS_STORAGE, JSON.stringify(prevState));
-      return prevState;
-    });
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === ID) {
+        setData((prevState) => {
+          prevState.splice(i, 1);
+          console.log(prevState);
+          localStorage.setItem("data", JSON.stringify(prevState));
+          return prevState;
+        });
+        break;
+      }
+    }
   };
-  console.log(data);
 
   if (data === []) {
     return <div>loading</div>;
@@ -63,7 +67,6 @@ const Past = () => {
 
   return (
     <IonPage>
-      {/*一つ遅れで消えちゃうう*/}
       <IonContent fullscreen>
         {data
           .filter((d) => {
@@ -88,8 +91,9 @@ const Past = () => {
                     fill="none"
                     color="dark"
                     onClick={() => {
-                      setID(id);
-                      delItem(id);
+                      setID(data[id].id);
+                      //console.log(data[id].id);
+                      delItem(data[id].id);
                     }}
                   >
                     <IonIcon icon={trash}></IonIcon>

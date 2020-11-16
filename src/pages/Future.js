@@ -53,7 +53,7 @@ const Future = () => {
   const [data, setData] = useState([]);
   const [ID, setID] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-  const TASKS_STORAGE = "task";
+  const TASKS_STORAGE = "data";
 
   useEffect(() => {
     if ("data" in localStorage) {
@@ -62,18 +62,28 @@ const Future = () => {
     }
   }, []);
 
-  const showData = () => {
-    console.log(data);
-  };
-
-  const delItem = (ID) => {
+  /*const delItem = (ID) => {
     console.log("del", ID);
     setData((prevState) => {
-      prevState.splice(ID, 1);
+      prevState.splice(0, 1);
       console.log(prevState);
-      localStorage.setItem(TASKS_STORAGE, JSON.stringify(prevState));
+      //localStorage.setItem("data", JSON.stringify(prevState));
       return prevState;
     });
+  };*/
+  const delItem = (ID) => {
+    console.log("del", ID);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === ID) {
+        setData((prevState) => {
+          prevState.splice(i, 1);
+          console.log(prevState);
+          localStorage.setItem("data", JSON.stringify(prevState));
+          return prevState;
+        });
+        break;
+      }
+    }
   };
 
   if (data === []) {
@@ -90,15 +100,7 @@ const Future = () => {
           .map((d, id) => {
             return (
               <div>
-                <IonItem
-                  key={id}
-                  onClick={() => {
-                    setID(id);
-                    console.log(id);
-                    //setShowAlert(true);
-                    showData();
-                  }}
-                >
+                <IonItem key={id}>
                   {d.channel} &emsp;
                   {convertDate(d.date)} &emsp;
                   {d.name}
@@ -115,8 +117,9 @@ const Future = () => {
                     fill="none"
                     color="dark"
                     onClick={() => {
-                      setID(id);
-                      delItem(id);
+                      setID(d.id);
+                      console.log(d.id);
+                      delItem(d.id);
                     }}
                   >
                     <IonIcon icon={trash}></IonIcon>
